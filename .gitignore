@@ -1,0 +1,8 @@
+/Listings/*
+/Objects/*
+/DebugConfig/*
+/RTE/*
+
+*.uvoptx
+*.uvguix.*
+
