@@ -8,7 +8,9 @@
 
 int main()
 {
-	init();	
+	init();
+	
+	mainLoop();
 	
 	return 0;
 }

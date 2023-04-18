@@ -7,6 +7,8 @@
 
 void init(void);
 
+void mainLoop(void);
+
 //Main loop for processing user input
 void commandProcessor(void);
 

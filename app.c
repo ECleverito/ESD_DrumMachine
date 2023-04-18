@@ -5,8 +5,10 @@
 #define HSE_VALUE	8000000
 #include "stm32f411xe.h"
 
+#include "I2C.h"
 #include "UART.h"
 #include "cbfifo.h"
+#include "CS43L22_DAC.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -25,8 +27,30 @@ void init(void)
 	
 	SystemCoreClockUpdate();
 	
-	UART_init();
+	//DAC Reset Pin
+	//Enable GPIOD
+	RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
+	//Set as GP output
+	GPIOD->MODER |= GPIO_MODER_MODE4_0;	
 	
+	I2C_init();
+	//UART_init();
+	
+}
+
+void mainLoop(void)
+{
+	dac_powerup_seq();
+	
+	//Read Chip ID & Rev.
+	I2C_start();
+	I2C_sendAddr(DAC_ADDR);
+	I2C_sendByte(CHIP_ID_AND_REV_REG);
+	I2C_stop();
+	I2C_start();
+	I2C_sendAddr(DAC_ADDR+1);
+	I2C_readByte();
+	I2C_stop();
 }
 
 void commandProcessor(void)
