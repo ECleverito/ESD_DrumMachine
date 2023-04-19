@@ -448,6 +448,16 @@
               <FileType>1</FileType>
               <FilePath>.\CS43L22_DAC.c</FilePath>
             </File>
+            <File>
+              <FileName>I2S.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\I2S.c</FilePath>
+            </File>
+            <File>
+              <FileName>I2S.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\I2S.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

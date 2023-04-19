@@ -1,6 +1,8 @@
 #include "I2C.h"
 
-void I2C_init()
+#include "stm32f411xe.h"
+
+void I2C1_init()
 {	
 	//Enable AHB1 I2C1 Clock Path
 	RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
@@ -19,7 +21,7 @@ void I2C_init()
 	I2C1->CR1 |= I2C_CR1_SWRST;
 	I2C1->CR1 &= ~I2C_CR1_SWRST;
 	
-	//Setting "alternate function mode" for pins 6 and 9 on Port B
+	//Setting "alternate function mode" 4(I2C1) for pins 6 and 9 on Port B
 	GPIOB->MODER |= GPIO_MODER_MODE6_1 | GPIO_MODER_MODE9_1;
 	GPIOB->MODER &= ((~GPIO_MODER_MODE6_0) & (~GPIO_MODER_MODE9_0));
 	
@@ -37,17 +39,17 @@ void I2C_init()
 	I2C1->CR2 |= I2C_CR2_FREQ_5;
 	
 	//Program Clock Control Reg. for Standard-mode (100 kHz)
-	I2C1->CCR |= 160;
+	I2C1->CCR |= 40;
 	
 	//Configure Rise Time
-	I2C1->TRISE = 33;
+	I2C1->TRISE = 9;
 	
 	//Enable I2C1
 	I2C1->CR1 |= I2C_CR1_PE;
 	
 }
 
-void I2C_start()
+void I2C1_start()
 {
 	I2C1->CR1 &= ~I2C_CR1_POS;
 	//I2C1->CR1 |= I2C_CR1_ACK;
@@ -60,7 +62,7 @@ void I2C_start()
 		;
 }
 
-void I2C_stop()
+void I2C1_stop()
 {
 	uint8_t reg;
 	
@@ -71,7 +73,7 @@ void I2C_stop()
 	
 }
 
-void I2C_sendAddr(uint8_t addr)
+void I2C1_sendAddr(uint8_t addr)
 {	
 	uint8_t reg;
 	
@@ -89,7 +91,7 @@ void I2C_sendAddr(uint8_t addr)
 	reg = I2C1->SR2;
 }
 
-void I2C_sendByte(uint8_t data)
+void I2C1_sendByte(uint8_t data)
 {	
 	//Send data
 	I2C1->DR = data;
@@ -99,7 +101,7 @@ void I2C_sendByte(uint8_t data)
 		;	
 }
 
-uint8_t I2C_readByte(void)
+uint8_t I2C1_readByte(void)
 {
 	uint8_t returnVal=0;
 	

@@ -2,6 +2,8 @@
 
 #include "I2C.h"
 
+#include "stm32f411xe.h"
+
 void dac_powerup_seq()
 {
 	//Bring RESET line high
@@ -16,19 +18,25 @@ void dac_powerup_seq()
 
 void writeDACreg(uint8_t regAddr, uint8_t val)
 {
-	I2C_start();
-	I2C_sendAddr(DAC_ADDR);
-	I2C_sendByte(regAddr);
-	I2C_sendByte(val);
-	I2C_stop();
+	I2C1_start();
+	I2C1_sendAddr(DAC_ADDR);
+	I2C1_sendByte(regAddr);
+	I2C1_sendByte(val);
+	I2C1_stop();
 }
 
 uint8_t readDACreg(uint8_t regAddr)
 {
-	I2C_start();
-	I2C_sendAddr(DAC_ADDR+1);
-	I2C_sendByte(regAddr);
-	uint8_t returnVal = I2C_readByte();
-	I2C_stop();
+	//Aborted writed to set register to read
+	I2C1_start();
+	I2C1_sendAddr(DAC_ADDR);
+	I2C1_sendByte(regAddr);
+	I2C1_stop();
+	
+	//Read from DAC with desired address set
+	I2C1_start();
+	I2C1_sendAddr(DAC_ADDR+1);
+	uint8_t returnVal = I2C1_readByte();
+	I2C1_stop();
 	return returnVal;
 }
