@@ -2,7 +2,7 @@
 
 #include "stm32f411xe.h"
 
-void I2C1_init()
+void I2C1_init(void)
 {	
 	//Enable AHB1 I2C1 Clock Path
 	RCC->APB1ENR |= RCC_APB1ENR_I2C1EN;
@@ -49,7 +49,7 @@ void I2C1_init()
 	
 }
 
-void I2C1_start()
+void I2C1_start(void)
 {
 	I2C1->CR1 &= ~I2C_CR1_POS;
 	//I2C1->CR1 |= I2C_CR1_ACK;
@@ -62,9 +62,9 @@ void I2C1_start()
 		;
 }
 
-void I2C1_stop()
+void I2C1_stop(void)
 {
-	uint8_t reg;
+	uint32_t reg;
 	
 	I2C1->CR1 |= I2C_CR1_STOP;
 	
@@ -75,7 +75,7 @@ void I2C1_stop()
 
 void I2C1_sendAddr(uint8_t addr)
 {	
-	uint8_t reg;
+	uint32_t reg;
 	
 	//Send address
 	I2C1->DR = addr;
@@ -113,4 +113,3 @@ uint8_t I2C1_readByte(void)
 	return returnVal;
 }
 
-	

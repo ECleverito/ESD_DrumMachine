@@ -2,11 +2,11 @@
 
 #include <stdint.h>
 
-void I2C1_init();
+void I2C1_init(void);
 
-void I2C1_start();
+void I2C1_start(void);
 
-void I2C1_stop();
+void I2C1_stop(void);
 
 void I2C1_sendAddr(uint8_t addr);
 

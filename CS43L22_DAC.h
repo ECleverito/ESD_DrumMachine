@@ -18,7 +18,7 @@
 
 #include <stdint.h>
 
-void dac_powerup_seq();
+void dac_powerup_seq(void);
 
 void writeDACreg(uint8_t regAddr, uint8_t val);
 

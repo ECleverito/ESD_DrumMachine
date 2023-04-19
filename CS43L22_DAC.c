@@ -4,7 +4,7 @@
 
 #include "stm32f411xe.h"
 
-void dac_powerup_seq()
+void dac_powerup_seq(void)
 {
 	//Bring RESET line high
 	GPIOD->ODR |= GPIO_ODR_OD4;

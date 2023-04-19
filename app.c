@@ -36,9 +36,6 @@ void init(void)
 	//By default PLLI2SR already set to 2, dividing VCO clock by 2,
 	//which sets resulting I2S clock at 100 MHz
 	
-	//From online example
-	RCC->PLLI2SCFGR |= (258 << 6); // N value = 258
-  	RCC->PLLI2SCFGR |= (3 << 28); // R value = 3
 	//Enable PLLI2S
 	RCC->CR |= RCC_CR_PLLI2SON;
 		
